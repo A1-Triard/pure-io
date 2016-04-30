@@ -1,6 +1,6 @@
 module Lib
-    ( someFunc
-    ) where
+  ( pmain
+  ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+pmain :: Integer -> Integer
+pmain _ = 7

@@ -3,4 +3,6 @@ module Main where
 import Lib
 
 main :: IO ()
-main = someFunc
+main = do
+  s <- getLine
+  putStrLn $ show $ pmain $ read s
