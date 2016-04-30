@@ -1,0 +1,10 @@
+Version of workspace file format:
+               1
+Time of storage:
+               "Sun May  1 02:41:50 MSK 2016"
+Name of the workspace:
+               "project"
+File paths of contained packages:
+               ["pure-io.cabal"]
+Maybe file path of an active package:
+               Just "pure-io.cabal"
