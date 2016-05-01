@@ -1,8 +1,11 @@
 module Main where
 
+#include <haskell>
 import Lib
 
 main :: IO ()
 main = do
-  s <- getLine
-  putStrLn $ show $ pmain $ read s
+  args <- V.fromList <$> getArgs
+  case pmain =<< read <$> (args !? 0) of
+    Just text -> putStr text
+    Nothing -> putStrLn "Error!"
