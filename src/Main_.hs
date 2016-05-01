@@ -1,9 +1,13 @@
-module Lib
+{-# OPTIONS_GHC -fwarn-unused-imports #-}
+module Main_
   ( AppInstance
-  , pmain
+  , _main
   ) where
 
-#include <haskell>
+import Control.Monad
+import Data.Vector (Vector, (!?))
+import qualified Data.ByteString.Lazy.UTF8 as U
+import Data.ByteString.Base64.Lazy
 
 worldBase64 :: String
 worldBase64
@@ -36,8 +40,8 @@ getOutText = getInOutText IOWrite
 isOutTextEquals :: String -> AppInstance -> IOIndex -> Bool
 isOutTextEquals text inst index = getOutText inst index == Just text
 
-pmain :: AppInstance -> Maybe String
-pmain app = do
+_main :: AppInstance -> Maybe String
+_main app = do
   name <- getInText app 0
   let greeting = "Hi, " ++ name ++ "!\n"
   let ok = isOutTextEquals greeting app 1
