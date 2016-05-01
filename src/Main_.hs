@@ -1,8 +1,5 @@
 {-# OPTIONS_GHC -fwarn-unused-imports #-}
-module Main_
-  ( AppInstance
-  , _main
-  ) where
+module Main_ where
 
 import Control.Monad
 import Data.Vector (Vector, (!?))
@@ -11,11 +8,13 @@ import Data.ByteString.Base64.Lazy
 
 worldBase64 :: String
 worldBase64
-  =  "V29ybGQge2FwcEluc3RhbmNlcyA9IFtbSU9PcGVyYXRpb24gSU9SZWFkICJub25hbWUiLElPT3Bl"
-  ++ "cmF0aW9uIElPV3JpdGUgIkhpLCBub25hbWUhCiJdLFtJT09wZXJhdGlvbiBJT1JlYWQgIlwxMDQy"
-  ++ "XDEwNzJcMTA4OVwxMTAzIixJT09wZXJhdGlvbiBJT1dyaXRlICJIaSwgXDEwNDJcMTA3MlwxMDg5"
-  ++ "XDExMDMhCiJdLFtJT09wZXJhdGlvbiBJT1JlYWQgIlwxMDU0XDEwODNcMTEwMyIsSU9PcGVyYXRp"
-  ++ "b24gSU9Xcml0ZSAiSGksIFwxMDU0XDEwODNcMTEwMyEKIl1dfQo="
+  =  "V29ybGQge2FwcEluc3RhbmNlcyA9IFtbSU9PcGVyYXRpb24gSU9Xcml0ZSAiV2hhdCBpcyB5b3Vy"
+  ++ "IG5hbWU/CiIsSU9PcGVyYXRpb24gSU9SZWFkICJub25hbWUiLElPT3BlcmF0aW9uIElPV3JpdGUg"
+  ++ "IkhpLCBub25hbWUhCiJdLFtJT09wZXJhdGlvbiBJT1dyaXRlICJXaGF0IGlzIHlvdXIgbmFtZT8K"
+  ++ "IixJT09wZXJhdGlvbiBJT1JlYWQgIlwxMDQyXDEwNzJcMTA4OVwxMTAzIixJT09wZXJhdGlvbiBJ"
+  ++ "T1dyaXRlICJIaSwgXDEwNDJcMTA3MlwxMDg5XDExMDMhCiJdLFtJT09wZXJhdGlvbiBJT1dyaXRl"
+  ++ "ICJXaGF0IGlzIHlvdXIgbmFtZT8KIixJT09wZXJhdGlvbiBJT1JlYWQgIlwxMDU0XDEwODNcMTEw"
+  ++ "MyIsSU9PcGVyYXRpb24gSU9Xcml0ZSAiSGksIFwxMDU0XDEwODNcMTEwMyEKIl1dfQo="
 
 type AppInstance = Int
 type IOIndex = Int
@@ -42,7 +41,9 @@ isOutTextEquals text inst index = getOutText inst index == Just text
 
 _main :: AppInstance -> Maybe String
 _main app = do
-  name <- getInText app 0
+  let question = "What is your name?\n"
+  _ <- if isOutTextEquals question app 0 then return () else Nothing
+  name <- getInText app 1
   let greeting = "Hi, " ++ name ++ "!\n"
-  let ok = isOutTextEquals greeting app 1
-  if ok then return (name ++ "\n" ++ greeting) else Nothing
+  _ <- if isOutTextEquals greeting app 2 then return () else Nothing
+  return $ question ++ name ++ "\n" ++ greeting
